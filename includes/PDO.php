@@ -1,5 +1,6 @@
 <?php
 
+
 try {
     // Crear una instancia de PDO para conectarte a la base de datos
     $dsn = 'mysql:host=localhost;dbname=db'; // Data Source Name (DSN)
