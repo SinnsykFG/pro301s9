@@ -1,0 +1,107 @@
+@use 'variables' as v;
+
+
+html{
+    font-size: 62.5%;
+    box-sizing: border-box;
+    scroll-padding-top: 0rem;
+}
+
+*,
+*:before,
+*:after{
+    box-sizing: inherit;
+}
+
+body{
+    font-family: v.$fuente-principal;
+    font-optical-sizing: auto;
+    font-style: normal;
+    color: v.$negro;
+    font-size: 2rem;
+
+    &.overflow-hidden{
+        overflow: hidden;
+    }
+}
+
+.header h1{
+    font-family: v.$fuente-elfaro;
+    font-style: normal;
+}
+
+h2{
+    font-family: v.$fuente-titulares;
+    font-style: normal;
+}
+
+h3{
+    font-family: v.$fuente-principal;
+    font-style: normal;
+}
+
+p{
+    font-size: 2rem;
+    color: v.$blanco;
+    line-height: 1.5;
+}
+
+a{
+    text-decoration: none;
+}
+
+h1, h2, h3{
+    margin: 0 0 5rem 0;
+    font-weight: 900;
+}
+
+h1{
+    font-size: 4rem;
+    color: v.$blanco;
+}
+
+h2{
+    font-size: 4.6rem;
+}
+
+h3{
+    font-size: 6rem;
+    text-align: center;
+    color: v.$blanco;
+}
+
+img{
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+body > section{
+    padding: 10rem 0;
+}
+
+.nombre-pagina{
+    text-align: center;
+    margin: 5rem 0;
+    font-weight: v.$bold;
+
+}
+
+.descripcion-pagina{
+    text-align: center;
+}
+
+label{
+    font-size: 2rem;
+    color: v.$blanco;
+}
+
+footer{
+    background-color: v.$negro;
+    color: v.$blanco;
+    padding: 5rem 0;
+    text-align: center;
+}
+
+
