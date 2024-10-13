@@ -4,19 +4,26 @@
 <h3 class="nombre-pagina">Login</h3>
 <p class="descripcion-pagina">Inicia sesión con tus datos para acceder</p>
 
-<form class="formulario" method="POST" action="/">
+<form class="formulario" method="POST" action="/login">
     <div class="campo">
-        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <label for="exampleFormControlInput1" class="form-label">Email:</label>
         <input 
             type="email" .
             class="form-control" 
-            id="exampleFormControlInput1" 
+            id="email" 
             placeholder="name@example.com"
-            name="email"/>
+            name="email"
+            required>
     </div>
     <div class="campo">
         <label for="inputPassword6" class="col-form-label">Password</label>
-        <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" name="password">
+        <input 
+            type="password" 
+            id="password" 
+            class="form-control" 
+            aria-describedby="passwordHelpInline" 
+            name="password"
+            required>
     </div>
     <input type="submit" class="boton" value="Iniciar Sesión">
 </form>

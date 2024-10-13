@@ -21,14 +21,13 @@ class Router
     {
         
         // Proteger Rutas...
-        session_start();
-
         // Arreglo de rutas protegidas...
+        
         // $rutas_protegidas = ['/admin', '/propiedades/crear', '/propiedades/actualizar', '/propiedades/eliminar', '/vendedores/crear', '/vendedores/actualizar', '/vendedores/eliminar'];
 
         // $auth = $_SESSION['login'] ?? null;
 
-        $currentUrl = $_SERVER['PATH_INFO'] ?? '/';
+        $currentUrl = $_SERVER['REQUEST_URI'] ?? '/';
         $method = $_SERVER['REQUEST_METHOD'];
 
         if ($method === 'GET') {
@@ -42,6 +41,7 @@ class Router
             // Call user fn va a llamar una función cuando no sabemos cual sera
             call_user_func($fn, $this); // This es para pasar argumentos
         } else {
+            http_response_code(404);
             echo "Página No Encontrada o Ruta no válida";
         }
     }
@@ -60,5 +60,6 @@ class Router
         include_once __DIR__ . "/views/$view.php";
         $contenido = ob_get_clean(); // Limpia el Buffer
         include_once __DIR__ . '/views/layout.php';
+        
     }
 }

@@ -32,6 +32,9 @@
         <div class="imagen"></div>
         <div class="app">
             <?php echo $contenido; ?>
+            <div>
+                <a class="nav-link" href="/logout">Cerrar sesión</a>
+            </div>
         </div>
     </div>
 
