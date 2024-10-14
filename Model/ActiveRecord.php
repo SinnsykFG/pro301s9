@@ -95,15 +95,15 @@ class ActiveRecord {
     }
 
     // Registros - CRUD
-//   public function guardar() {
-//        if (!is_null($this->id)) {
+    public function guardar() {
+        if (!is_null($this->id)) {
             // Actualizar
-//            return $this->actualizar();
-//        } else {
+            return $this->actualizar();
+       } else {
             // Crear un nuevo registro
-//            return $this->crear();
-//        }
- //   }
+          return $this->crear();
+        }
+    }
 
     // Todos los registros
     public static function all() {

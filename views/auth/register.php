@@ -1,8 +1,9 @@
 <?php
 
 // Incluir la conexión a la base de datos
-require_once "..\includes\pdo.php";
-require_once __DIR__ . '/../templates/alertas.php';
+//require_once "..\includes\pdo.php";
+require_once __DIR__ . '/../../includes/PDO.php';
+include_once __DIR__ . '/../templates/alertas.php';
 use Model\Usuario;
 
 

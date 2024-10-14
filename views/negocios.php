@@ -5,14 +5,17 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               <a class="nav-link active" aria-current="page" href="../bienvenida.php">Inicio</a>
-              <a class="nav-link" href="../Views/noticias.php">Noticias</a>
+              <a class="nav-link" href="views\noticias.php">Noticias</a>
               <a class="nav-link" href="./Views/deportes.php">Deportes</a>
               <a class="nav-link" href="./Views/negocios.php">Negocios</a>
               <a class="nav-link" href="./Views/contacto.php">Contacto</a>
             </div>
           </div>
         </div>
-      </nav>
+        <div>
+            <a class="nav-link" href="/logout">Cerrar sesión</a>
+      </div>
+    </nav>
 </div>
 <main>
         <div class="container-fluid text-center">

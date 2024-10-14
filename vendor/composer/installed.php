@@ -3,7 +3,7 @@
         'name' => 'admin/htdocs',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'd70281f63f0eb35afe5918e0178c0962ef1df079',
+        'reference' => '2d10d75353732d4a77a9b1bfbe05e0c4ccdaef50',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'admin/htdocs' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'd70281f63f0eb35afe5918e0178c0962ef1df079',
+            'reference' => '2d10d75353732d4a77a9b1bfbe05e0c4ccdaef50',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

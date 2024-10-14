@@ -26,9 +26,13 @@ class Router
         // $rutas_protegidas = ['/admin', '/propiedades/crear', '/propiedades/actualizar', '/propiedades/eliminar', '/vendedores/crear', '/vendedores/actualizar', '/vendedores/eliminar'];
 
         // $auth = $_SESSION['login'] ?? null;
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-        $currentUrl = $_SERVER['REQUEST_URI'] ?? '/';
+        $currentUrl = $_SERVER['PATH_INFO'] ?? '/';
         $method = $_SERVER['REQUEST_METHOD'];
+        error_log("URL actual: $currentUrl, Método: $method");
 
         if ($method === 'GET') {
             $fn = $this->getRoutes[$currentUrl] ?? null;
@@ -43,6 +47,7 @@ class Router
         } else {
             http_response_code(404);
             echo "Página No Encontrada o Ruta no válida";
+            error_log("Ruta no encontrada: $currentUrl");
         }
     }
 
@@ -55,9 +60,16 @@ class Router
         }
 
         ob_start(); // Almacenamiento en memoria durante un momento...
+        $viewPath = __DIR__ . "/views/$view.php";
 
+        // Log para verificar que la ruta es correcta
+        if (!file_exists($viewPath)) {
+        error_log("Vista no encontrada: " . $viewPath);
+        echo "Error: La vista no existe.";
+        return;
+    }
         // entonces incluimos la vista en el layout
-        include_once __DIR__ . "/views/$view.php";
+        include_once $viewPath;
         $contenido = ob_get_clean(); // Limpia el Buffer
         include_once __DIR__ . '/views/layout.php';
         

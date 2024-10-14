@@ -2,7 +2,7 @@
 
 require 'funciones.php';
 require __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ .'/../includes/pdo.php';
+require_once __DIR__ .'/../includes/PDO.php';
 require_once __DIR__ . '/../Model/ActiveRecord.php';
 // Conectarnos a la base de datos
 use Model\ActiveRecord;

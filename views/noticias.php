@@ -5,7 +5,7 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
             <a class="nav-link active" aria-current="page" href="../view/bienvenida.php">Inicio</a>
-              <a class="nav-link" href="../views/noticias.php">Noticias</a>
+              <a class="nav-link" href="views\noticias.php">Noticias</a>
               <a class="nav-link" href="../views/deportes.php">Deportes</a>
               <a class="nav-link" href="../views/negocios.php">Negocios</a>
               <a class="nav-link" href="../views/contacto.php">Contacto</a>
@@ -13,6 +13,9 @@
           </div>
         </div>
       </nav>
+      <div>
+            <a class="nav-link" href="/logout">Cerrar sesión</a>
+      </div>
 </div>
 <div class="bg-warning text-center py-2">
     <p class="mb-0">Aviso importante: Actualización de noticias</p>

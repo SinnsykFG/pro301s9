@@ -4,7 +4,7 @@
 <h3 class="nombre-pagina">Login</h3>
 <p class="descripcion-pagina">Inicia sesión con tus datos para acceder</p>
 
-<form class="formulario" method="POST" action="/login">
+<form class="formulario" action="/login" method="POST">
     <div class="campo">
         <label for="exampleFormControlInput1" class="form-label">Email:</label>
         <input 

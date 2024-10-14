@@ -1,7 +1,7 @@
 <?php
 
 namespace Model;
-use pdo;
+use PDO;
 class Usuario extends ActiveRecord {
 
     // Base de Datos
@@ -112,35 +112,54 @@ class Usuario extends ActiveRecord {
         try {
             $query = "SELECT * FROM usuarios WHERE email = :email LIMIT 1";
             $stmt = self::$db->prepare($query);
-            $stmt->execute(['email'=> $this->email]);
+            $stmt->execute(['email'=> $email]);
             $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
             
-            if($usuario && password_verify($this->password, $usuario['password'])) {
-                // Iniciar seisón con éxito
-                if (session_status() === PHP_SESSION_NONE) {
-                    session_start();
-                }
-                session_regenerate_id(true);
-
-                $_SESSION['usuario'] = $usuario['id'];
-                $_SESSION['nombre'] = $usuario['nombre'];
-                $_SESSION['email'] = $usuario['email'];
-                $_SESSION['login'] = true;
-                $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'];
-                
-                error_log('sesión iniciada correctamente');
-                return true;
-            }
-            else{
+            if($usuario && password_verify($password, $usuario['password'])) {
+                return $usuario;
+            } else {
                 self::$alertas['error'][] = 'Usuario y/o password incorrectos';
-                error_log('error al iniciar sesión: Credenciales incorrectas');
                 return false;
             }
         } catch (\PDOException $e) {
             self::$alertas['error'][] = 'Usuario y/o password incorrectos';
             error_log('Error: al iniciar sesión' . $e->getMessage());
             return false;
-        }    
+        }  
+
+//        try {
+//            $query = "SELECT * FROM usuarios WHERE email = :email LIMIT 1";
+//            $stmt = self::$db->prepare($query);
+//            $stmt->execute(['email'=> $this->email]);
+//            $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
+//            
+//            if($usuario && password_verify($this->password, $usuario['password'])) {
+//                // Iniciar seisón con éxito
+//                if (session_status() === PHP_SESSION_NONE) {
+//                    session_start();
+//                }
+//                session_regenerate_id(true);
+//
+//                $_SESSION['usuario'] = $usuario['id'];
+//                $_SESSION['nombre'] = $usuario['nombre'];
+//                $_SESSION['email'] = $usuario['email'];
+//                $_SESSION['login'] = true;
+//                $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'];
+//                
+//                error_log('sesión iniciada correctamente');
+//                error_log("Estado de sesión: " . session_status());
+//                return true;
+//            }
+//            else{
+//                self::$alertas['error'][] = 'Usuario y/o password incorrectos';
+//                error_log('error al iniciar sesión: Credenciales incorrectas');
+//                return false;
+//            }
+//        } catch (\PDOException $e) {
+//            self::$alertas['error'][] = 'Usuario y/o password incorrectos';
+//            error_log('Error: al iniciar sesión' . $e->getMessage());
+//            return false;
+//        }    
 
     }
 }

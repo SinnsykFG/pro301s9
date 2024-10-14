@@ -5,33 +5,90 @@ namespace Controller;
 use MVC\Router;
 use Model\Usuario;
 use Classes\Email;
-;
+use PDO;
+use Model\ActiveRecord;
 
 class LoginController
 {
     public static function login(Router $router)
     {
         $alertas = [];
-
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario = new Usuario($_POST);
-
-
-            if ($usuario->login()) {
-                error_log('Usuario logueado');
-                if ($_SESSION['tipo_usuario'] === 'lector') {
-                    header('Location: views\noticias.php');
+    
+            $usuarioDB = Usuario::where('email', $usuario->email);
+                
+            if ($usuarioDB) {
+                // Verificar contraseña
+                if (password_verify($_POST['password'], $usuarioDB->password)) {
+                    // Iniciar sesión
+                    if (session_status() === PHP_SESSION_NONE) {
+                        session_start();
+                    }
+    
+                    $_SESSION['id'] = $usuarioDB->id;
+                    $_SESSION['nombre'] = $usuarioDB->nombre;
+                    $_SESSION['email'] = $usuarioDB->email;
+                    $_SESSION['login'] = true;
+                    $_SESSION['tipo_usuario'] = $usuarioDB->tipo_usuario;
+                    var_dump($usuarioDB); exit;
+                    // Redirigir según rol
+                    if ($usuarioDB->tipo_usuario === 'admin' || $usuarioDB->tipo_usuario === 'editor') {
+                        header('Location: /noticias');
+                    } else {
+                        header('Location: /bienvenida');
+                    }
+                    exit;
                 } else {
-                    header('Location: views\agregar-noticia.php');
+                    $alertas['error'][] = 'Contraseña incorrecta';
                 }
-                exit();
             } else {
-                $alertas = Usuario::getAlertas();
+                $alertas['error'][] = 'El usuario no existe';
             }
-        
         }
+    
         $router->render('auth/login', ['alertas' => $alertas]);
     }
+//    {   
+//
+//        $alertas = [];
+//    
+//        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//            $usuario = new Usuario($_POST);
+//            $usuarioDB = Usuario::where('email', $usuario->email);
+//    
+//            if ($usuarioDB && password_verify($_POST['password'], $usuarioDB->password)) {
+//                // Iniciar la sesión si no está iniciada
+//                if (session_status() === PHP_SESSION_NONE) {
+//                    session_start();
+//                }
+//    
+//                $_SESSION['id'] = $usuarioDB->id;
+//                $_SESSION['nombre'] = $usuarioDB->nombre;
+//                $_SESSION['email'] = $usuarioDB->email;
+//                $_SESSION['login'] = true;
+//                $_SESSION['tipo_usuario'] = $usuarioDB->tipo_usuario;
+//                error_log("Login exitoso. Usuario: " . $_SESSION['nombre'] . ", Tipo: " . $_SESSION['tipo_usuario']);
+//
+//                // Redirigir según el rol del usuario
+//                if ($_SESSION['tipo_usuario'] === 'admin' || $_SESSION['tipo_usuario'] === 'editor') {
+//                    header('Location: /agregar-noticia');
+//                } else {
+//                    self::mostrarNoticias($router);
+//                }
+//                exit;
+//                // Redirigir según el rol del usuario
+//               // header('Location: ' . ($_SESSION['tipo_usuario'] === 'lector' ? '/noticias' : '/agregar-noticia'));
+//               // exit;
+//            } else {
+//                $alertas['error'][] = 'Usuario o contraseña incorrectos';
+//            }
+//        }
+//    
+//        $router->render('auth/login', ['alertas' => $alertas]);
+//    }
+
 
     public static function logout()
     {
@@ -56,7 +113,7 @@ class LoginController
 
     public static function register(Router $router)
     {
-        
+        $usuario = new Usuario();
         $alertas = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario = new Usuario($_POST);
@@ -82,7 +139,7 @@ class LoginController
                     // Crear el usuario
                     $resultado = $usuario->guardar();
                     if ($resultado) {
-                        header('Location: auth/login');
+                        header('Location: views\auth\login.php');
                         exit;
                     } else {
                         Usuario::setAlerta('error','Hubo un problema al crear el usuario'); 
@@ -114,6 +171,47 @@ class LoginController
         $router->render('auth/confirmar-cuenta', [
             'alertas' => $alertas
         ]);
+    }
+
+    public static function mostrarNoticias(Router $router)
+    {
+        if(!isset($_SESSION['login'])|| $_SESSION['login'] == true){
+            header('Location: /');
+            exit;
+        }
+        $router->render('noticias');
+    }
+
+    public static function mostrarDeportes(Router $router)
+    {
+        if(!isset($_SESSION['login'])|| $_SESSION['login'] == true){
+            header('Location: /');
+            exit;
+        }
+        $router->render('deportes');
+    }
+
+    public static function mostrarNegocios(Router $router)
+    {
+        if(!isset($_SESSION['login'])|| $_SESSION['login'] == true){
+            header('Location: /');
+            exit;
+        }
+        $router->render('negocios');
+    }
+
+    public static function agregarNoticia(Router $router)
+    {
+        if(!isset($_SESSION['login'])|| $_SESSION['login'] == true){
+            header('Location: /');
+            exit;
+        }
+        $router->render('agregar-noticia');
+        
+    }
+    public static function contacto(Router $router)
+    {
+        $router->render('auth/contacto', []);
     }
 }
 
